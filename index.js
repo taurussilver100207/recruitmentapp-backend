@@ -8,9 +8,7 @@ import cors from "cors"
 import { fileURLToPath } from "url"
 import path from "path"
 import multer from "multer"
-import { createUserprofile } from "./controllers/userprofile.js" 
 import authRoutes from "./routes/auth.js";
-import userProfileRoutes from "./routes/userprofile.js"
 import { verifyToken } from "./middleware/auth.js"
 // CONFIG
 const __filename = fileURLToPath(import.meta.url)
@@ -40,10 +38,8 @@ const upload = multer({  storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
-app.use("/userprofile", userProfileRoutes)
 
 // ROUTES WITH FILES
-app.use("/userprofile", verifyToken, upload.single("picture"), createUserprofile)
 
 const PORT = process.env.PORT || 8000
 mongoose.connect(process.env.MONGODB_URL, {
