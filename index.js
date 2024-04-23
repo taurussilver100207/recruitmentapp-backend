@@ -56,10 +56,6 @@ mongoose.connect(process.env.MONGODB_URL, {
 app.listen(PORT, () => console.log(`Running in port ${PORT}`))
 
 console.log("Hello World");
-<<<<<<< HEAD
-console.log("Override something");
-=======
 console.log("Override something!!! hihihhhihi2");
->>>>>>> hoangnay
 console.log('hehehe thay đổi 1 chutts');
 console.log('huhuhuhuhuuhuhu');
