@@ -49,3 +49,4 @@ mongoose.connect(process.env.MONGODB_URL, {
 .catch(err => console.log(`Error: ${err}`))
 app.listen(PORT, () => console.log(`Running in port ${PORT}`))
 
+console.log("Hello World");
