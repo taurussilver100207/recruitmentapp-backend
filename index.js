@@ -8,9 +8,8 @@ import cors from "cors"
 import { fileURLToPath } from "url"
 import path from "path"
 import multer from "multer"
-import { createUserprofile } from "./controllers/userprofile.js" 
+import { createUserprofile } from "./controllers/userprofile.js"
 import authRoutes from "./routes/auth.js";
-import userProfileRoutes from "./routes/userprofile.js"
 import { verifyToken } from "./middleware/auth.js"
 // CONFIG
 const __filename = fileURLToPath(import.meta.url)
@@ -36,20 +35,25 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({  storage })
+const upload = multer({ storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
-app.use("/userprofile", userProfileRoutes)
 
 // ROUTES WITH FILES
 app.use("/userprofile", verifyToken, upload.single("picture"), createUserprofile)
 
 const PORT = process.env.PORT || 8000
+
+
+app.post('/list', (req, res) => {
+    res.status(200).send("hello mindx")
+})
+
 mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 })
-.catch(err => console.log(`Error: ${err}`))
+    .catch(err => console.log(`Error: ${err}`))
 app.listen(PORT, () => console.log(`Running in port ${PORT}`))
 
