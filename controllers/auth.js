@@ -49,3 +49,11 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 }
+
+export const  list = async (req ,res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}

@@ -40,9 +40,7 @@ const upload = multer({ storage })
 app.use("/auth", authRoutes)
 
 // ROUTES WITH FILES
-
 const PORT = process.env.PORT || 8000
-
 
 app.post('/list', (req, res) => {
     res.status(200).send("hello mindx")
