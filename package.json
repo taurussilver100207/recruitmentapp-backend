@@ -26,6 +26,7 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemon": "^2.0.20",
     "punycode": "^2.3.1",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "validator": "^13.11.0"
   }
 }
