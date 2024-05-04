@@ -50,10 +50,3 @@ export const login = async (req, res) => {
     }
 }
 
-export const  list = async (req ,res) => {
-    try {
-        
-    } catch (error) {
-        
-    }
-}

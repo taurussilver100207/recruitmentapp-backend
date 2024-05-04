@@ -10,6 +10,8 @@ import path from "path"
 import multer from "multer"
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
+import listTestModel from "./models/ListTest.js"
+import routerList from "./routes/listTest.js"
 // CONFIG
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -38,6 +40,8 @@ const upload = multer({ storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
+app.use("/listTest", routerList)
+
 
 // ROUTES WITH FILES
 const PORT = process.env.PORT || 8000
@@ -53,4 +57,4 @@ mongoose.connect(process.env.MONGODB_URL, {
     .catch(err => console.log(`Error: ${err}`))
 app.listen(PORT, () => console.log(`Running in port ${PORT}`))
 
-console.log("gfgfdgdg sua nay")
+// console.log("gfgfdgdg sua nay")
