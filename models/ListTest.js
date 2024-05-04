@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId
+const ObjectId = Schema.ObjectId;
 
 const listTestSchema = new Schema({
     maBaiTest: String,
@@ -11,14 +11,14 @@ const listTestSchema = new Schema({
         require: true,
     },
 
-    thoiLuong: String,
+    thoiLuong: Number,
 
     moTa: String,
 
-    chucVu: String,
+    chucVu: ObjectId,
 
     diemSoToiThieu: {
-        type: Number,
+        require : true,
     }
 })
 
