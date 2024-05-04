@@ -17,8 +17,15 @@ const listTestSchema = new Schema({
 
     chucVu: ObjectId,
 
+    cauhoi: [
+        {
+            cauhoi: [{ type: String, require: true }],
+            cautraloi: [{ type: String, require: true }]
+        }
+    ],
     diemSoToiThieu: {
-        require : true,
+        type : Number,
+        require: true,
     }
 })
 
