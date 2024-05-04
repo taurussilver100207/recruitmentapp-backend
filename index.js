@@ -10,10 +10,12 @@ import path from "path"
 import multer from "multer"
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
+import jobRouter from "./routes/jobManagement.js";
 // CONFIG
+dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-dotenv.config()
+
 const app = express()
 app.use(express.json())
 app.use(helmet())
@@ -38,6 +40,7 @@ const upload = multer({ storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
+app.use("/job", jobRouter)
 
 // ROUTES WITH FILES
 
@@ -54,5 +57,3 @@ mongoose.connect(process.env.MONGODB_URL, {
 })
     .catch(err => console.log(`Error: ${err}`))
 app.listen(PORT, () => console.log(`Running in port ${PORT}`))
-
-console.log("gfgfdgdg")
