@@ -10,7 +10,7 @@ export const register = async (req, res) => {
             email,
             password,
             phoneNumber,
-            userType
+            role
         } = req.body
 
         const salt = await bcrypt.genSalt(10)
@@ -22,7 +22,7 @@ export const register = async (req, res) => {
             email,
             password: hashedPassword,
             phoneNumber,
-            userType
+            role
         })
         const savedUser = await newUser.save()
         const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET_KEY)
