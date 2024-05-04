@@ -43,9 +43,10 @@ const UserSchema = new mongoose.Schema({
     //     type: Date,
     //     required: true
     // },
-    userType: {
+    role: {
         type: String,
-        required: false
+        enum: ["candidate", "officer"],
+        default: "candidate"
     }
 }, { timestamps: true })
 
