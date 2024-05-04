@@ -12,7 +12,8 @@ import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import { checkRole } from "./middleware/authorization.js"
 import jobRouter from "./routes/jobManagement.js";
-import { register } from "./controllers/auth.js"
+import listTestModel from "./models/ListTest.js"
+import routerList from "./routes/listTest.js"
 // CONFIG
 dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
@@ -43,11 +44,17 @@ const upload = multer({ storage })
 // ROUTES
 app.use("/auth", authRoutes)
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
+app.use("/listTest", routerList)
+
 
 // ROUTES WITH FILES
 app.post("/auth/register", register, upload.single("picture"))
-
 const PORT = process.env.PORT || 8000
+
+app.post('/list', (req, res) => {
+    res.status(200).send("hello mindx")
+})
+
 mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
