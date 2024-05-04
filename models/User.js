@@ -47,6 +47,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ["candidate", "officer"],
         default: "candidate"
+    },
+    avatarPath: {
+        type: String,
+        default: ""
     }
 }, { timestamps: true })
 

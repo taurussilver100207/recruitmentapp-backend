@@ -10,7 +10,9 @@ import path from "path"
 import multer from "multer"
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
+import { checkRole } from "./middleware/authorization.js"
 import jobRouter from "./routes/jobManagement.js";
+import { register } from "./controllers/auth.js"
 // CONFIG
 dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
@@ -40,17 +42,12 @@ const upload = multer({ storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
-app.use("/job", jobRouter)
+app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 
 // ROUTES WITH FILES
+app.post("/auth/register", register, upload.single("picture"))
 
 const PORT = process.env.PORT || 8000
-
-
-app.post('/list', (req, res) => {
-    res.status(200).send("hello mindx")
-})
-
 mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
