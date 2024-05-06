@@ -45,10 +45,11 @@ const upload = multer({ storage })
 app.use("/auth", authRoutes)
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
-
+app.use("/recruiment" , routerList)
 
 // ROUTES WITH FILES
-app.post("/auth/register", register, upload.single("picture"))
+// app.post("/auth/register", register, upload.single("picture"))
+
 const PORT = process.env.PORT || 8000
 
 app.post('/list', (req, res) => {

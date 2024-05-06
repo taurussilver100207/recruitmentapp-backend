@@ -3,13 +3,15 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const listTestSchema = new Schema({
-    tên : String,
-    ngaybatdau : String,
-    ngayketthuc : String,
-    
+const RecruitSessionSchema = new Schema({
+    tên: String,
+    ngaybatdau: Date,
+    ngayketthuc: Date,
+    vitri: Array,
+    soluong: Number,
+    mota: String,
 })
 
-const listTest = mongoose.model("companyList", listTestSchema)
+const RecruitSession = mongoose.model("recruitSession", RecruitSessionSchema)
 
-export default listTest;
+export default RecruitSession;
