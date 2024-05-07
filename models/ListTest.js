@@ -23,12 +23,12 @@ const listTestSchema = new Schema({
             cautraloi: [{ type: String, require: true }]
         }
     ],
-    diemSoToiThieu: {
+    totalScore: {
         type : Number,
         require: true,
     }
 })
 
-const listTest = mongoose.model("list", listTestSchema)
+const listTest = mongoose.model("Test", listTestSchema)
 
 export default listTest;
