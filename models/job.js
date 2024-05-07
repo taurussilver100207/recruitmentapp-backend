@@ -2,8 +2,14 @@ import mongoose from "mongoose";
 
 const jobSchema = mongoose.Schema(
     {
-        jobId: String,
-        jobName: String,
+        jobId: {
+            type: String,
+            require: true,
+        },
+        jobName: {
+            type: String,
+            require: true,
+        },
         jobDescription: {
             description: String,
             salary: String,

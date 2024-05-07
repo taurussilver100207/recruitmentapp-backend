@@ -11,6 +11,8 @@ import multer from "multer"
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import jobRouter from "./routes/jobManagement.js";
+import emailRoute from "./routes/sendMail.js"
+
 // CONFIG
 dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
@@ -41,6 +43,7 @@ const upload = multer({ storage })
 // ROUTES
 app.use("/auth", authRoutes)
 app.use("/job", jobRouter)
+app.use("/email", emailRoute)
 
 // ROUTES WITH FILES
 

@@ -8,6 +8,6 @@ jobRouter.delete('/deleteJob/:idJob', deleteJob);
 jobRouter.get('/listJobs', getListJobs);
 jobRouter.get('/getJob/:idJob', getJob);
 jobRouter.put('/updateJob/:id', updateJob);
-jobRouter.get('/search',filterJobs)
+jobRouter.get('/search', filterJobs);
 
 export default jobRouter;
