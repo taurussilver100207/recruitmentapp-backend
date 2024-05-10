@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
-import { validate } from "uuid";
-
+import Test from "./Test.js"
 const QuestionSchema = new mongoose.Schema({
     test: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Test",
         validate: {
             validator: async v => {
-                const checkTestExistence = await mongoose.model("Test").exists({ _id: v })
+                const checkTestExistence = await Test.exists({ _id: v })
                 return checkTestExistence
             },
             message: "The test does not exist."
@@ -28,12 +27,18 @@ const QuestionSchema = new mongoose.Schema({
             message: "The number of options must be 4."
         } 
     },
+    correctOption: {
+        type: String,
+        enum: this.options,
+        message: '{VALUE} is not supported',
+        required: true
+    },
     score: {
         type: Number,
         required: true,
         validate: {
             validator: async v => {
-                const test = await mongoose.model("Test").findOne({ _id: this.test })
+                const test = await Test.findById(this.test)
 
                 if (!test) return false
 

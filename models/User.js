@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { validate } from "uuid";
 import validator from "validator";
 
 const UserSchema = new mongoose.Schema({
@@ -47,22 +46,6 @@ const UserSchema = new mongoose.Schema({
         },
         message: props => `${props.value} is not a valid phone number.`
     },
-    // entranceScore: {
-    //     type: Number,
-    //     required: true
-    // },
-    // interviewDate: {
-    //     type: Date,
-    //     required: true
-    // },
-    // interviewResult: {
-    //     type: String,
-    //     required: true
-    // },
-    // workDay: {
-    //     type: Date,
-    //     required: true
-    // },
     role: {
         type: String,
         enum: ["candidate", "officer"],

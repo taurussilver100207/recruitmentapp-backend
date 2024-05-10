@@ -8,12 +8,13 @@ import cors from "cors"
 import { fileURLToPath } from "url"
 import path from "path"
 import multer from "multer"
-import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import { checkRole } from "./middleware/authorization.js"
+import authRoutes from "./routes/auth.js";
 import jobRouter from "./routes/jobManagement.js";
-import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
+import testRouter from "./routes/test.js"
+
 // CONFIG
 dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
@@ -46,9 +47,10 @@ app.use("/auth", authRoutes)
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
 app.use("/recruiment" , routerList)
+app.use("/test", testRouter, verifyToken, checkRole(["candidate"]))
 
 // ROUTES WITH FILES
-// app.post("/auth/register", register, upload.single("picture"))
+app.post("/auth/register", register, upload.single("picture"))
 
 const PORT = process.env.PORT || 8000
 
