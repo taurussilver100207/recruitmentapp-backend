@@ -13,18 +13,15 @@ export const sendEmailService = async (email, type) => {
       case "accepted":
         subject = "Congratulations! Announcement of interview schedule.";
         html = `
-          <div>
-            <p>Dear Applicant,</p>
-            <p>First of all, we would like to thank you for taking the time to research and apply for the [...] position at our company.</p>
-            <p>After getting the test results, we realize that you are a potential candidate for this position. Therefore, we respectfully invite you to participate in the interview with the following information:</p>
-            <p>-[interview time]</p>
-            <p>- [interview location]</p>
-            <p>Please confirm your participation in the interview before [time] via this email to confirm the information !</p>
-            <p>Hope to be able to discuss more with you at the interview !</p>
-            <p>Best regards,</p>
-            <p>[sign]</p>
-            <p>[position held]-[company name]</p>
-          </div>
+        <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: auto;">
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Dear Applicant,</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">First of all, we would like to thank you for taking the time to research and apply for the [...] position at our company.</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">After getting the test results, we realize that you are a potential candidate for this position. We will send you an interview schedule soon, please pay attention to the email sent to you.
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Hope to be able to discuss more with you at the interview!</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Best regards,</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333; margin-top: 40px;">[sign]</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">[position held] - [company name]</p>
+        </div>
         `;
         break;
 
@@ -32,18 +29,18 @@ export const sendEmailService = async (email, type) => {
       case "schedule":
         subject = "Announcement of test schedule !";
         html = `
-          <div>
-            <p>Dear: [recipient],</p>
-            <p>First of all, our company would like to thank you for participating in our company's recruitment program.</p>
-            <p>The company would like to announce:</p>
-            <p>-vacancies: []</p>
-            <p>-test schedule: [test schedule]</p>
-            <p>-location: [location]</p> //nhét link làm bài test vào đây
-            <p>For more details, please contact [phone number] for more details.</p>
-            <p>We hope you can arrange time to participate. In case you cannot arrange a time, please contact us at the phone number/address above to reconfirm.</p>
-            <p>Best regards!</p>
-            <p>HR Manager</p>
-            <p>[sign]</p>
+          <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: auto;">
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">Dear: [recipient],</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">First of all, our company would like to thank you for participating in our company's recruitment program.</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">The company would like to announce:</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">-vacancies: []</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">-test schedule: [test schedule]</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">-test topic: [test]</p> //nhét link làm bài test vào đây
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">For more details, please contact [phone number] for more details.</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">We hope you can arrange time to participate. In case you cannot arrange a time, please contact us at the phone number/address above to reconfirm.</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">Best regards!</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">HR Manager</p>
+            <p style="font-size: 16px; line-height: 1.5; color: #333333;">[sign]</p>
           </div>
         `;
         break;
