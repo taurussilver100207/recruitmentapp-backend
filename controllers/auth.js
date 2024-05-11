@@ -10,7 +10,8 @@ export const register = async (req, res) => {
             email,
             password,
             phoneNumber,
-            role
+            role,
+            avatarPath
         } = req.body
 
         const salt = await bcrypt.genSalt(10)
@@ -22,7 +23,8 @@ export const register = async (req, res) => {
             email,
             password: hashedPassword,
             phoneNumber,
-            role
+            role,
+            avatarPath
         })
         const savedUser = await newUser.save()
         const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET_KEY)
@@ -49,3 +51,4 @@ export const login = async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 }
+
