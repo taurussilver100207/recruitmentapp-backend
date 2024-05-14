@@ -1,6 +1,6 @@
-import User from "../models/User";
+import User from "../models/User.js";
 
-const checkRole = (roles) => async (req, res, next) => {
+export const checkRole = (roles) => async (req, res, next) => {
     const { email } = req.body
 
     const user = await User.findOne({ email })
