@@ -1,24 +1,34 @@
-import express from 'express'
+import express, { application } from 'express'
 import { checkList, deleteTest, newCreate, update } from '../controllers/listTest.js'
-import { checkCecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
+import { candidateRecruiment, candidates, checkRecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, interviewCandidate, sendEmailCompanyNotification, sendMail, updateCandidateList, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
+import { listCandidateNotification } from '../controllers/listCandidates.js'
 
 const routerList = express.Router()
 
+// Quản lý bài test đầu vào
 routerList.get("/checkList", checkList)
 routerList.post("/createList", newCreate)
 routerList.put("/updateList/:id", update)
 routerList.delete("/deleteList/:id", deleteTest)
 
 // đợt tuyển dụng của công ty (recruiment)
-routerList.get("/recruiment", checkCecruitment )
-routerList.get("/recruiment/:id" , detailRecruiment)
+routerList.get("/checkRecruiment", checkRecruitment)
+routerList.get("/detailRecruiment/:id", detailRecruiment)
 routerList.post("/createRecruiment", createRecruiment)
 routerList.put("/updateRecruiment/:id", updateRecruiment)
 
 // ứng viên (candidate)
-routerList.post("/createCandidate/:id", createCandidate)
+routerList.get("/candidateRecruiment", candidateRecruiment)
+routerList.post("/createCandidate", createCandidate)
 routerList.put("/updateCandidate/:id", updateStatusRecruiment)
 routerList.delete("/deleteCandidate/:id", deleteCandidate)
+routerList.put("/updateCandidate/:recruimentId/candidate/:id", updateCandidateList)
+routerList.put("/updateCandidate/:id/phongvan", candidates)
+routerList.put("/updateCandidate/:id/ketqua", interviewCandidate)
+routerList.put("/sendEmailCompany", sendEmailCompanyNotification)
+routerList.put("/sendMail", sendMail)
 
+// danh sách các ứng viên từ các đợt phỏng vấn
+routerList.get("/listCandidates", listCandidateNotification)
 
 export default routerList;

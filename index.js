@@ -12,8 +12,9 @@ import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import { checkRole } from "./middleware/authorization.js"
 import jobRouter from "./routes/jobManagement.js";
-import listTestModel from "./models/ListTest.js"
+// import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
+
 // CONFIG
 dotenv.config()
 const __filename = fileURLToPath(import.meta.url)
@@ -45,7 +46,8 @@ const upload = multer({ storage })
 app.use("/auth", authRoutes)
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
-app.use("/recruiment" , routerList)
+app.use("/recruiments", routerList)
+app.use ("/listCandidate" , routerList)
 
 // ROUTES WITH FILES
 // app.post("/auth/register", register, upload.single("picture"))

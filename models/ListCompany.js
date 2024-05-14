@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const RecruitSessionSchema = new Schema({
-    tên: String,
+    creatorId: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    ten: String,
     ngaybatdau: Date,
     ngayketthuc: Date,
     vitri: Array,
