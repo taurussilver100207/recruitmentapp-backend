@@ -1,31 +1,15 @@
 import nodemailer from 'nodemailer';
 
-export const sendEmailService = async (email, type) => {
+export const sendEmailService = async (emails, type) => {
   try {
-    if (!email) {
-      throw new Error("Missing email address");
+    if (!emails || !Array.isArray(emails) || emails.length === 0) {
+      throw new Error("Missing or invalid email addresses");
     }
 
     let subject, html;
 
     switch (type) {
-      // nếu kết quả phỏng vấn mà đạt
-      case "accepted":
-        subject = "Congratulations! Announcement of interview schedule.";
-        html = `
-        <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: auto;">
-        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Dear Applicant,</p>
-        <p style="font-size: 16px; line-height: 1.5; color: #333333;">First of all, we would like to thank you for taking the time to research and apply for the [...] position at our company.</p>
-        <p style="font-size: 16px; line-height: 1.5; color: #333333;">After getting the test results, we realize that you are a potential candidate for this position. We will send you an interview schedule soon, please pay attention to the email sent to you.
-        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Hope to be able to discuss more with you at the interview!</p>
-        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Best regards,</p>
-        <p style="font-size: 16px; line-height: 1.5; color: #333333; margin-top: 40px;">[sign]</p>
-        <p style="font-size: 16px; line-height: 1.5; color: #333333;">[position held] - [company name]</p>
-        </div>
-        `;
-        break;
-
-      // nhận lịch thông báo làm bài test
+      // thông báo lịch kiểm tra  
       case "schedule":
         subject = "Announcement of test schedule !";
         html = `
@@ -45,7 +29,23 @@ export const sendEmailService = async (email, type) => {
         `;
         break;
 
-      // nếu kết quả phỏng vấn mà không đạt
+      // nếu kết quả bài test mà đạt
+      case "accepted":
+        subject = "Congratulations! Announcement of interview schedule.";
+        html = `
+        <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: auto;">
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Dear Applicant,</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">First of all, we would like to thank you for taking the time to research and apply for the [...] position at our company.</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">After getting the test results, we realize that you are a potential candidate for this position. We will send you an interview schedule soon, please pay attention to the email sent to you.
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Hope to be able to discuss more with you at the interview!</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">Best regards,</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333; margin-top: 40px;">[sign]</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #333333;">[position held] - [company name]</p>
+        </div>
+        `;
+        break;
+
+      // nếu kết quả bài test mà không đạt
       case "rejected":
         subject = "Notification of test results !";
         html = `
@@ -74,29 +74,30 @@ export const sendEmailService = async (email, type) => {
       }
     });
 
-    const info = await transport.sendMail({
-      from: '"Hoàng" <nguyenhuyhoang10a2qn@gmail.com>',
-      to: email,
-      subject: subject,
-      html: html,
+    const promises = emails.map(email => {
+      return transport.sendMail({
+        from: '"Hoàng" <nguyenhuyhoang10a2qn@gmail.com>',
+        to: email,
+        subject: subject,
+        html: html,
+      });
     });
 
+    const info = await Promise.all(promises);
     return info;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
-
 export const sendMail = async (req, res) => {
   try {
-    const { email, type } = req.body;
-    if (!email || !type) {
-      throw new Error("Missing email or type in request body");
+    const { emails, type } = req.body;
+    if (!emails || !Array.isArray(emails) || emails.length === 0 || !type) {
+      throw new Error("Missing email list or type in request body");
     }
 
-    const response = await sendEmailService(email, type);
-    console.log(response);
+    const response = await sendEmailService(emails, type);
     res.status(200).send(response);
   } catch (error) {
     console.log(error);

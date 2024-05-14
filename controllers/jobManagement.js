@@ -102,10 +102,22 @@ export const updateJob = async (req, res) => {
     const { id } = req.params;
     const { jobId, jobName, jobDescription } = req.body;
 
+    let updateFields = {};
+
+    if (jobId !== undefined) updateFields.jobId = jobId;
+    if (jobName !== undefined) updateFields.jobName = jobName;
+    if (jobDescription !== undefined) {
+        updateFields.jobDescription = {};
+        if (jobDescription.description !== undefined) updateFields.jobDescription.description = jobDescription.description;
+        if (jobDescription.salary !== undefined) updateFields.jobDescription.salary = jobDescription.salary;
+        if (jobDescription.skillsAndExperience !== undefined) updateFields.jobDescription.skillsAndExperience = jobDescription.skillsAndExperience;
+        if (jobDescription.reasonToWorkHere !== undefined) updateFields.jobDescription.reasonToWorkHere = jobDescription.reasonToWorkHere;
+    }
+
     try {
         const updatedJob = await jobModel.findByIdAndUpdate(
             id,
-            { $set: { jobId, jobName, jobDescription } },
+            { $set: updateFields },
             { new: true }
         );
 

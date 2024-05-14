@@ -1,21 +1,23 @@
 import mongoose from "mongoose";
 
-const jobSchema = mongoose.Schema(
+const jobDescriptionSchema = new mongoose.Schema({
+    description: String,
+    salary: String,
+    skillsAndExperience: String,
+    reasonToWorkHere: String,
+}, { _id: false });
+
+const jobSchema = new mongoose.Schema(
     {
         jobId: {
             type: String,
-            require: true,
+            required: true,
         },
         jobName: {
             type: String,
-            require: true,
+            required: true,
         },
-        jobDescription: {
-            description: String,
-            salary: String,
-            skillsAndExperience: String,
-            reasonToWorkHere: String,
-        },
+        jobDescription: jobDescriptionSchema,
     },
     { timestamps: true }
 );
