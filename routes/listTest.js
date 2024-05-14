@@ -1,7 +1,6 @@
 import express  from 'express'
 import { checkList, deleteTest, newCreate, update } from '../controllers/listTest.js'
 import { candidateRecruiment, candidates, checkRecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, interviewCandidate, updateCandidateList, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
-import { listCandidateNotification } from '../controllers/listCandidates.js'
 
 const routerList = express.Router()
 
@@ -26,7 +25,6 @@ routerList.put("/updateCandidate/:recruimentId/candidate/:id", updateCandidateLi
 routerList.put("/updateCandidate/:id/phongvan", candidates)
 routerList.put("/updateCandidate/:id/ketqua", interviewCandidate)
 
-// danh sách các ứng viên từ các đợt phỏng vấn
-routerList.get("/listCandidates", listCandidateNotification)
+
 
 export default routerList;

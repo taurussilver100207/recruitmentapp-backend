@@ -3,13 +3,11 @@ import bodyParser from 'body-parser';
 import listTest from '../models/ListTest.js';
 
 const app = express();
-// const port = process.env.PORT || 8000
 
 app.use(bodyParser.json());
 
 export const checkList = async (req, res) => {
     try {
-        // const listId = parseInt(req.params.id);
         const lists = await listTest.find()
         if (lists) {
             res.json(lists)

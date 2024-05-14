@@ -16,6 +16,7 @@ import listTestModel from "./models/ListTest.js"
 import jobRouter from "./routes/jobManagement.js";
 // import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
+import routerCandidate from "./routes/listRouter.js"
 
 // CONFIG
 dotenv.config()
@@ -52,7 +53,8 @@ app.use("/email", emailRoute)
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
 app.use("/recruiments", routerList)
-app.use ("/listCandidate" , routerList)
+// app.use ("/listCandidate" , routerList)
+app.use("/routerCandidate" , routerCandidate)
 
 // ROUTES WITH FILES
 // app.post("/auth/register", register, upload.single("picture"))
