@@ -1,5 +1,4 @@
 import { jobModel } from "../models/job.js";
-import mongoose from "mongoose";
 
 // CREATE JOB
 export const createJob = async (req, res, next) => {

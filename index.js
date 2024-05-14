@@ -11,6 +11,8 @@ import multer from "multer"
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import { checkRole } from "./middleware/authorization.js"
+import emailRoute from "./routes/sendMail.js"
+import listTestModel from "./models/ListTest.js"
 import jobRouter from "./routes/jobManagement.js";
 // import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
@@ -44,6 +46,9 @@ const upload = multer({ storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
+app.use("/job", jobRouter)
+app.use("/email", emailRoute)
+
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
 app.use("/recruiments", routerList)

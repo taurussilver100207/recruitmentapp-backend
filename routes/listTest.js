@@ -1,6 +1,6 @@
-import express, { application } from 'express'
+import express  from 'express'
 import { checkList, deleteTest, newCreate, update } from '../controllers/listTest.js'
-import { candidateRecruiment, candidates, checkRecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, interviewCandidate, sendEmailCompanyNotification, sendMail, updateCandidateList, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
+import { candidateRecruiment, candidates, checkRecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, interviewCandidate, updateCandidateList, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
 import { listCandidateNotification } from '../controllers/listCandidates.js'
 
 const routerList = express.Router()
@@ -25,8 +25,6 @@ routerList.delete("/deleteCandidate/:id", deleteCandidate)
 routerList.put("/updateCandidate/:recruimentId/candidate/:id", updateCandidateList)
 routerList.put("/updateCandidate/:id/phongvan", candidates)
 routerList.put("/updateCandidate/:id/ketqua", interviewCandidate)
-routerList.put("/sendEmailCompany", sendEmailCompanyNotification)
-routerList.put("/sendMail", sendMail)
 
 // danh sách các ứng viên từ các đợt phỏng vấn
 routerList.get("/listCandidates", listCandidateNotification)

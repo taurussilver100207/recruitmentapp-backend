@@ -186,92 +186,92 @@ export const interviewCandidate = async (req, res) => {
 }
 
 // lua chon ung vien de gui thong bao qua email 
-export const sendEmailCompanyNotification = async (email, type) => {
-    try {
-        if (!email) {
-            throw new Error("email is not enough!")
-        }
-        let subject, name, html;
+// export const sendEmailCompanyNotification = async (email, type) => {
+//     try {
+//         if (!email) {
+//             throw new Error("email is not enough!")
+//         }
+//         let subject, name, html;
 
-        switch (type) {
-            // gửi email thông báo thời gian  và cách thức làm bài test
-            case "emailNoticeTest":
-                subject = "Notice about the test";
-                html = `
-            <p>Chào ${name}</p>
-            <p>Bạn đã được mời tham gia bài test tuyển dụng cho vị trí . Bài test sẽ diễn ra vào lúc [thời gian] ngày , theo hình thức [Hình thức làm bài test].
-            Vui lòng ấn vào tham gia [làm bài test].
-            </p>
-            <p>Chúc bạn may mắn.</p>
-            <p>Nhóm tuyển dụng [Công Ty]</p>    
-            `
-                break;
+//         switch (type) {
+//             // gửi email thông báo thời gian  và cách thức làm bài test
+//             case "emailNoticeTest":
+//                 subject = "Notice about the test";
+//                 html = `
+//             <p>Chào ${name}</p>
+//             <p>Bạn đã được mời tham gia bài test tuyển dụng cho vị trí . Bài test sẽ diễn ra vào lúc [thời gian] ngày , theo hình thức [Hình thức làm bài test].
+//             Vui lòng ấn vào tham gia [làm bài test].
+//             </p>
+//             <p>Chúc bạn may mắn.</p>
+//             <p>Nhóm tuyển dụng [Công Ty]</p>    
+//             `
+//                 break;
 
-            // gửi email kết quả bài test đầu vào và lịch phỏng vấn
-            case "testResult":
-                subject = "Notification of test results and interview schedule";
-                html = `
-                <p>Chào ${name} </P>
-                <p>Kết quả bài test đầu vào tuyển dụng cho vị trí [Tên vị trí] của bạn như sau : 
-                <br>
-                - Điểm số : ${enstrancetestscore};
-                </P>
-                <p>
-                Bạn đã được mời tham gia phỏng vấn cho vị trí [Tên vị trí]. Buổi phỏng vấn sẽ diễn ra vào lúc [Thời gian] ngày [Ngày] tại [Địa điểm phỏng vấn].
-                </p>
-                <p>Vui lòng xác nhận tham dự phỏng vấn qua email này.</p>
-                <p>Chúc bạn may mắn!</p>
-                <p>Trân trọng</p>
-                <p>Nhóm tuyển dụng [Tên công ty]</p>
-            `
-                break;
+//             // gửi email kết quả bài test đầu vào và lịch phỏng vấn
+//             case "testResult":
+//                 subject = "Notification of test results and interview schedule";
+//                 html = `
+//                 <p>Chào ${name} </P>
+//                 <p>Kết quả bài test đầu vào tuyển dụng cho vị trí [Tên vị trí] của bạn như sau : 
+//                 <br>
+//                 - Điểm số : ${enstrancetestscore};
+//                 </P>
+//                 <p>
+//                 Bạn đã được mời tham gia phỏng vấn cho vị trí [Tên vị trí]. Buổi phỏng vấn sẽ diễn ra vào lúc [Thời gian] ngày [Ngày] tại [Địa điểm phỏng vấn].
+//                 </p>
+//                 <p>Vui lòng xác nhận tham dự phỏng vấn qua email này.</p>
+//                 <p>Chúc bạn may mắn!</p>
+//                 <p>Trân trọng</p>
+//                 <p>Nhóm tuyển dụng [Tên công ty]</p>
+//             `
+//                 break;
 
-            //kết thúc phỏng vấn và ngày nhận việc
-            case "endenterviewjob":
-                subject = "end of interview and job acceptance date";
-                html = `
-            <p>Chúc mừng bạn ${name} đã ứng tuyển vị trí phỏng vấn thành công</P>
-            <p>Vui lòng xác nhận để được làm việc</P>
-            <p>Trân Trọng</P>
-            `
-                break;
-            default:
-                throw new Error("Invailed email enough")
-        };
+//             //kết thúc phỏng vấn và ngày nhận việc
+//             case "endenterviewjob":
+//                 subject = "end of interview and job acceptance date";
+//                 html = `
+//             <p>Chúc mừng bạn ${name} đã ứng tuyển vị trí phỏng vấn thành công</P>
+//             <p>Vui lòng xác nhận để được làm việc</P>
+//             <p>Trân Trọng</P>
+//             `
+//                 break;
+//             default:
+//                 throw new Error("Invailed email enough")
+//         };
 
-        const transporter = nodemailer.createTransport({
-            host: "stmp example.com",
-            port: 800,
-            auth: {
-                user: process.env.USER_EMAIL,
-                pass: process.env.PASSWORD_EMAIL,
-            }
-        });
+//         const transporter = nodemailer.createTransport({
+//             host: "stmp example.com",
+//             port: 800,
+//             auth: {
+//                 user: process.env.USER_EMAIL,
+//                 pass: process.env.PASSWORD_EMAIL,
+//             }
+//         });
 
-        const infoNotification = await transporter.sendMail({
-            from: '"Khiem" <Khiem0809@gamil.com>',
-            to: email,
-            subject: subject,
-            html: html
-        });
+//         const infoNotification = await transporter.sendMail({
+//             from: '"Khiem" <Khiem0809@gamil.com>',
+//             to: email,
+//             subject: subject,
+//             html: html
+//         });
 
-        return infoNotification;
-    } catch (error) {
-        console.log("error : >>", error);
-        res.status(500).send(error)
-    }
-}
+//         return infoNotification;
+//     } catch (error) {
+//         console.log("error : >>", error);
+//         res.status(500).send(error)
+//     }
+// }
 
-export const sendMail = async (req, res) => {
-    try {
-        const { email, type } = req.body;
-        if (!email || !type) {
-            throw new Error("Missing email or type in request body");
-        }
-        const responesides = await sendEmailCompanyNotification(email, type);
-        res.json(responesides)
-    } catch (error) {
+// export const sendMail = async (req, res) => {
+//     try {
+//         const { email, type } = req.body;
+//         if (!email || !type) {
+//             throw new Error("Missing email or type in request body");
+//         }
+//         const responesides = await sendEmailCompanyNotification(email, type);
+//         res.json(responesides)
+//     } catch (error) {
 
-    }
-}
+//     }
+// }
 
