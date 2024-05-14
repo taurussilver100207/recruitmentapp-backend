@@ -14,6 +14,7 @@ import { checkRole } from "./middleware/authorization.js"
 import jobRouter from "./routes/jobManagement.js";
 import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
+
 import emailRoute from "./routes/sendMail.js"
 // CONFIG
 dotenv.config()
@@ -44,6 +45,9 @@ const upload = multer({ storage })
 
 // ROUTES
 app.use("/auth", authRoutes)
+app.use("/job", jobRouter)
+app.use("/email", emailRoute)
+
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
 app.use("/recruiment" , routerList)
