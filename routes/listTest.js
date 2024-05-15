@@ -1,4 +1,4 @@
-import express  from 'express'
+import express from 'express'
 import { checkList, deleteTest, newCreate, update } from '../controllers/listTest.js'
 import { candidateRecruiment, candidates, checkRecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, interviewCandidate, updateCandidateList, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
 

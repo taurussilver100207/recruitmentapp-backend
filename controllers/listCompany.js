@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-// xem danh sach cac dot tuyen dung cong ty
+// see the list of company information dots
 export const checkRecruitment = async (req, res) => {
     try {
         const recruitments = await RecruitSession.find()
@@ -18,7 +18,7 @@ export const checkRecruitment = async (req, res) => {
     }
 }
 
-// chi tiet cac dot tuyen dung cong ty
+// details of company information points
 export const detailRecruiment = async (req, res) => {
     try {
         const recruiments = await RecruitSession.findById(req.params.id);
@@ -33,7 +33,7 @@ export const detailRecruiment = async (req, res) => {
     }
 }
 
-// tao moi cac dot tuyen dung cong ty
+// create a new company content dots
 export const createRecruiment = async (req, res) => {
     try {
         const createRecruiment = new RecruitSession(req.body)
@@ -47,7 +47,7 @@ export const createRecruiment = async (req, res) => {
     }
 }
 
-// cap nhạt cac dot tuyen dung cong ty
+// update the company information dots
 export const updateRecruiment = async (req, res) => {
     try {
         const updateRecruiments = await RecruitSession.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -61,7 +61,7 @@ export const updateRecruiment = async (req, res) => {
     }
 }
 
-// xem danh sach ưng vien trong đợt tuyển dụng
+//  see the list of candidates in the recruiment round
 export const candidateRecruiment = async (req, res) => {
     try {
         const candidates = await RecruimentApplicant.find({ recruimentId: req.params.id });
@@ -77,7 +77,7 @@ export const candidateRecruiment = async (req, res) => {
     }
 }
 
-// them ung vien theo yeu cau
+// add candidates as required
 export const createCandidate = async (req, res) => {
     try {
         const createCandidates = new RecruimentApplicant({ recruimentId: req.params.recruimentId, ...req.body, });
@@ -92,7 +92,7 @@ export const createCandidate = async (req, res) => {
 }
 
 
-// xoa ung vien theo dot tuyen dung
+// delete candidates as required
 export const deleteCandidate = async (req, res) => {
     try {
         const deleteRecruiments = await RecruimentApplicant.findByIdAndDelete({ _id: req.params.id, recruimentId: req.params.recruimentId, })
@@ -109,7 +109,7 @@ export const deleteCandidate = async (req, res) => {
 }
 
 
-// cập nhật trạng thái ứng vien (duoc tuyen , chua duoc tuyen)
+// Update candidate status (qualified, not yet qualified)
 export const updateStatusRecruiment = async (req, res) => {
     try {
         const updateRecruiments = await RecruimentApplicant.findByIdAndUpdate(req.params.id, { ...req.body })
@@ -123,7 +123,7 @@ export const updateStatusRecruiment = async (req, res) => {
     }
 }
 
-// cập nhật thời gian và cach thức làm bài test cho từng ứng viên
+// Update test time and method for each candidate
 export const updateCandidateList = async (req, res) => {
     try {
         const updates = await RecruimentApplicant.findByIdAndUpdate(req.params.id, {
@@ -142,7 +142,7 @@ export const updateCandidateList = async (req, res) => {
     }
 }
 
-// cap nhat time va cach thuc phong van tung ung vien
+// Update test time and method of releasing the candidate
 export const candidates = async (req, res) => {
     try {
         const candidateSession = await RecruimentApplicant.findByIdAndUpdate(req.params.id, {
@@ -165,7 +165,7 @@ export const candidates = async (req, res) => {
     }
 }
 
-// cap nhạt ket qua phong van va ngay nhan viec cho tung ungvien
+// Update result and job acceptance date for each candidate
 export const interviewCandidate = async (req, res) => {
     try {
         const interviews = await RecruimentApplicant.findByIdAndUpdate(req.params.id, {
@@ -185,7 +185,7 @@ export const interviewCandidate = async (req, res) => {
     }
 }
 
-// lua chon ung vien de gui thong bao qua email 
+// lua chon ung vien de gui thong bao qua email
 // export const sendEmailCompanyNotification = async (email, type) => {
 //     try {
 //         if (!email) {
@@ -203,7 +203,7 @@ export const interviewCandidate = async (req, res) => {
 //             Vui lòng ấn vào tham gia [làm bài test].
 //             </p>
 //             <p>Chúc bạn may mắn.</p>
-//             <p>Nhóm tuyển dụng [Công Ty]</p>    
+//             <p>Nhóm tuyển dụng [Công Ty]</p>
 //             `
 //                 break;
 
@@ -212,7 +212,7 @@ export const interviewCandidate = async (req, res) => {
 //                 subject = "Notification of test results and interview schedule";
 //                 html = `
 //                 <p>Chào ${name} </P>
-//                 <p>Kết quả bài test đầu vào tuyển dụng cho vị trí [Tên vị trí] của bạn như sau : 
+//                 <p>Kết quả bài test đầu vào tuyển dụng cho vị trí [Tên vị trí] của bạn như sau :
 //                 <br>
 //                 - Điểm số : ${enstrancetestscore};
 //                 </P>

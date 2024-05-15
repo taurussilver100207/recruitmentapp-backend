@@ -15,6 +15,7 @@ export const listCandidateStatus = async (status) => {
         console.log("error :>>", error);
     }
 }
+
 export const listAllCandidate = async () => {
     try {
         const listAll = await candidatesModel.find();

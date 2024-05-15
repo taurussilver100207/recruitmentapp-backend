@@ -53,8 +53,7 @@ app.use("/email", emailRoute)
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
 app.use("/listTest", routerList)
 app.use("/recruiments", routerList)
-// app.use ("/listCandidate" , routerList)
-app.use("/routerCandidate" , routerCandidate)
+app.use("/routerCandidate", routerCandidate)
 
 // ROUTES WITH FILES
 // app.post("/auth/register", register, upload.single("picture"))

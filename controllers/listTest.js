@@ -6,6 +6,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
+// see list of test
 export const checkList = async (req, res) => {
     try {
         const lists = await listTest.find()
@@ -21,7 +22,7 @@ export const checkList = async (req, res) => {
     }
 }
 
-// tạo mới bài test 
+// create a new test
 export const newCreate = async (req, res) => {
     try {
         const create = new listTest(req.body)
@@ -47,7 +48,7 @@ export const newCreate = async (req, res) => {
     }
 }
 
-// cập nhật bài test
+// update test
 export const update = async (req, res) => {
     try {
         const updates = await listTest.findByIdAndUpdate(req.params.id)
@@ -61,7 +62,7 @@ export const update = async (req, res) => {
     }
 }
 
-// xóa bài test
+// delete test
 export const deleteTest = async (req, res) => {
     try {
         const updates = await listTest.findByIdAndDelete(req.params.id)

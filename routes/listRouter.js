@@ -7,4 +7,4 @@ const routerCandidate = express.Router();
 routerCandidate.get("/candidate/:status", listCandidateStatus)
 routerCandidate.get("/candidatesAll", listAllCandidate)
 
-export default routerCandidate;
+export default routerCandidate; 
