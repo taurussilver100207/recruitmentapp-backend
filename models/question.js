@@ -40,7 +40,7 @@ const QuestionSchema = new mongoose.Schema({
         }
     },
 }, { timestamps: true })
-
+console.log("ok")
 const Question = mongoose.model("Question", QuestionSchema)
 
 export default Question
