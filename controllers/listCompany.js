@@ -7,6 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
+
 // see the list of company information dots
 export const checkRecruitment = async (req, res) => {
     try {
@@ -142,7 +143,7 @@ export const updateCandidateList = async (req, res) => {
     }
 }
 
-// Update test time and method of releasing the candidate
+// Update time and interview method for each the candidate
 export const candidates = async (req, res) => {
     try {
         const candidateSession = await RecruimentApplicant.findByIdAndUpdate(req.params.id, {

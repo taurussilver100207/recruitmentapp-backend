@@ -24,8 +24,3 @@ export const listAllCandidate = async () => {
         console.log("error :>>", error);
     }
 }
-
-// export const candides = await listCandidateStatus('Đang ứng tuyển')
-// export const candidates = await listCandidateStatus('Đã lưu hồ sơ lại')
-// export const candidate = await listCandidateStatus('Xác nhận vị trí')
-// export const candidateStatus = await listCandidateStatus('Từ chối vị trí') 
