@@ -50,4 +50,6 @@ const QuestionSchema = new mongoose.Schema({
 
 const Question = mongoose.model("Question", QuestionSchema)
 
+console.log("ok");
+
 export default Question
