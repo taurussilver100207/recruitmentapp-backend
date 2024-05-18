@@ -19,17 +19,15 @@ export const createJob = async (req, res, next) => {
             jobId,
             jobName,
             jobDescription
-        })
+        });
 
         const savedJob = await newJob.save();
-
         res.status(200).send(savedJob);
     } catch (error) {
         console.error("Error creating job:", error);
         res.status(500).json({ message: "Error creating job" });
     }
-    next();
-}
+};
 
 // DELETE JOB BY ID
 export const deleteJob = async (req, res) => {
