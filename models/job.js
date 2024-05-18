@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 const jobSchema = mongoose.Schema(
     {
-        jobId: {
+        jobCode: {
             type: String,
-            require: true,
+            required: true
         },
         jobName: {
             type: String,
-            require: true,
+            required: true
         },
         jobDescription: {
             description: String,

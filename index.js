@@ -8,7 +8,6 @@ import cors from "cors"
 import { fileURLToPath } from "url"
 import path from "path"
 import multer from "multer"
-import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import { checkRole } from "./middleware/authorization.js"
 import emailRoute from "./routes/sendMail.js"
@@ -17,6 +16,8 @@ import jobRouter from "./routes/jobManagement.js";
 // import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
 import routerCandidate from "./routes/listRouter.js"
+import authRoutes from "./routes/auth.js";
+import testRouter from "./routes/test.js"
 
 // CONFIG
 dotenv.config()
@@ -56,7 +57,7 @@ app.use("/recruiments", listTest)
 app.use("/routerCandidate", routerCandidate)
 
 // ROUTES WITH FILES
-// app.post("/auth/register", register, upload.single("picture"))
+app.post("/auth/register", register, upload.single("picture"))
 
 const PORT = process.env.PORT || 8000
 

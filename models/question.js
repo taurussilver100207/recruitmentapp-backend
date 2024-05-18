@@ -1,16 +1,53 @@
 import mongoose from "mongoose";
+import Test from "./Test.js"
+const QuestionSchema = new mongoose.Schema({
+    test: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Test",
+        validate: {
+            validator: async v => {
+                const checkTestExistence = await Test.exists({ _id: v })
+                return checkTestExistence
+            },
+            message: "The test does not exist."
+        }
+    },
+    question: {
+        type: String,
+        required: true,
+        max: [300, "The maximum length for a question is 300 characters."]
+    },
+    options: {
+        type: [String],
+        required: true,
+        validate: {
+            validator: v => {
+                return v.length == 4
+            },
+            message: "The number of options must be 4."
+        } 
+    },
+    correctOption: {
+        type: String,
+        enum: this.options,
+        message: '{VALUE} is not supported',
+        required: true
+    },
+    score: {
+        type: Number,
+        required: true,
+        validate: {
+            validator: async v => {
+                const test = await Test.findById(this.test)
 
-const Schema = mongoose.Schema
+                if (!test) return false
 
-const question = new Schema({
-    made: String,
-    cauhoi: String,
-    diem: Number,
-    dapan: Array,
-    dapandung: String,
-    loaicauhoi: String,
-})
+                return v < test.totalScore
+            }
+        }
+    },
+}, { timestamps: true })
 
-const questionModel = mongoose.model("question", question)
+const Question = mongoose.model("Question", QuestionSchema)
 
-export default questionModel;
+export default Question
