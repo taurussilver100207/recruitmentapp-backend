@@ -29,6 +29,6 @@ const listTestSchema = new Schema({
     }
 })
 
-const listTest = mongoose.model("list", listTestSchema)
+const listTestModel = mongoose.model("list", listTestSchema)
 
-export default listTest;
+export default listTestModel;

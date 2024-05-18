@@ -12,7 +12,7 @@ import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js"
 import { checkRole } from "./middleware/authorization.js"
 import emailRoute from "./routes/sendMail.js"
-import listTestModel from "./models/ListTest.js"
+import listTest from "./routes/listTest.js";
 import jobRouter from "./routes/jobManagement.js";
 // import listTestModel from "./models/ListTest.js"
 import routerList from "./routes/listTest.js"
@@ -51,8 +51,8 @@ app.use("/job", jobRouter)
 app.use("/email", emailRoute)
 
 app.use("/job", jobRouter, verifyToken, checkRole(["officer"]))
-app.use("/listTest", routerList)
-app.use("/recruiments", routerList)
+app.use("/listTest", listTest)
+app.use("/recruiments", listTest)
 app.use("/routerCandidate", routerCandidate)
 
 // ROUTES WITH FILES

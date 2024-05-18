@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser';
-import listTest from '../models/ListTest.js';
+import listTestModel from '../models/ListTest.js'
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 // see list of test
 export const checkList = async (req, res) => {
     try {
-        const lists = await listTest.find()
+        const lists = await listTestModel.find()
         if (lists) {
             res.json(lists)
         } else {
@@ -25,7 +25,7 @@ export const checkList = async (req, res) => {
 // create a new test
 export const newCreate = async (req, res) => {
     try {
-        const create = new listTest(req.body)
+        const create = new listTestModel(req.body)
 
         await create.save()
         // const newCreate = new listModel({
@@ -51,7 +51,7 @@ export const newCreate = async (req, res) => {
 // update test
 export const update = async (req, res) => {
     try {
-        const updates = await listTest.findByIdAndUpdate(req.params.id)
+        const updates = await listTestModel.findByIdAndUpdate(req.params.id)
         await updates.save()
 
         res.status(202).send(updates)
@@ -65,7 +65,7 @@ export const update = async (req, res) => {
 // delete test
 export const deleteTest = async (req, res) => {
     try {
-        const updates = await listTest.findByIdAndDelete(req.params.id)
+        const updates = await listTestModel.findByIdAndDelete(req.params.id)
         if (!updates) {
             res.status(404).json({ Message: "list cannot be default" })
         }

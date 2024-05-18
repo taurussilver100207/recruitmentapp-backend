@@ -2,29 +2,29 @@ import express from 'express'
 import { checkList, deleteTest, newCreate, update } from '../controllers/listTest.js'
 import { candidateRecruiment, candidates, checkRecruitment, createCandidate, createRecruiment, deleteCandidate, detailRecruiment, interviewCandidate, updateCandidateList, updateRecruiment, updateStatusRecruiment } from '../controllers/listCompany.js'
 
-const routerList = express.Router()
+const listTest = express.Router()
 
 // Quản lý bài test đầu vào
-routerList.get("/checkList", checkList)
-routerList.post("/createList", newCreate)
-routerList.put("/updateList/:id", update)
-routerList.delete("/deleteList/:id", deleteTest)
+listTest.get("/checkList", checkList)
+listTest.post("/createList", newCreate)
+listTest.put("/updateList/:id", update)
+listTest.delete("/deleteList/:id", deleteTest)
 
 // đợt tuyển dụng của công ty (recruiment)
-routerList.get("/checkRecruiment", checkRecruitment)
-routerList.get("/detailRecruiment/:id", detailRecruiment)
-routerList.post("/createRecruiment", createRecruiment)
-routerList.put("/updateRecruiment/:id", updateRecruiment)
+listTest.get("/checkRecruiment", checkRecruitment)
+listTest.get("/detailRecruiment/:id", detailRecruiment)
+listTest.post("/createRecruiment", createRecruiment)
+listTest.put("/updateRecruiment/:id", updateRecruiment)
 
 // ứng viên (candidate)
-routerList.get("/candidateRecruiment", candidateRecruiment)
-routerList.post("/createCandidate", createCandidate)
-routerList.put("/updateCandidate/:id", updateStatusRecruiment)
-routerList.delete("/deleteCandidate/:id", deleteCandidate)
-routerList.put("/updateCandidate/:recruimentId/candidate/:id", updateCandidateList)
-routerList.put("/updateCandidate/:id/phongvan", candidates)
-routerList.put("/updateCandidate/:id/ketqua", interviewCandidate)
+listTest.get("/candidateRecruiment", candidateRecruiment)
+listTest.post("/createCandidate", createCandidate)
+listTest.put("/updateCandidate/:id", updateStatusRecruiment)
+listTest.delete("/deleteCandidate/:id", deleteCandidate)
+listTest.put("/updateCandidate/:recruimentId/candidate/:id", updateCandidateList)
+listTest.put("/updateCandidate/:id/phongvan", candidates)
+listTest.put("/updateCandidate/:id/ketqua", interviewCandidate)
 
 
 
-export default routerList;
+export default listTest;
