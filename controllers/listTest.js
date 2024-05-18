@@ -56,7 +56,7 @@ export const update = async (req, res) => {
         await updates.save()
 
         res.status(202).send(updates)
-
+        
     } catch (error) {
         console.log("error :>>", error);
         res.status(500).send(error)

@@ -31,7 +31,7 @@ export const saveAnswer = async (req, res) => {
         
         await CV.findByIdAndUpdate(
             cvId, 
-            { "$push": { "answers": savedAnswer._id }},
+            { "$push": { "answers": savedAnswer._id }}, 
             { "new": true, "upsert": true }
         )
 

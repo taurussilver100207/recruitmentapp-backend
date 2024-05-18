@@ -6,12 +6,6 @@ const CVSchema = new mongoose.Schema({
     candidate: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        validate: {
-            validator: async v => {
-                return await User.exists({ _id: v })
-            },
-            message: "The user does not exist."
-        }
     },
     test: {
         type: mongoose.Schema.Types.ObjectId,

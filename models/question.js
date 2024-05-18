@@ -4,13 +4,6 @@ const QuestionSchema = new mongoose.Schema({
     test: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Test",
-        validate: {
-            validator: async v => {
-                const checkTestExistence = await Test.exists({ _id: v })
-                return checkTestExistence
-            },
-            message: "The test does not exist."
-        }
     },
     question: {
         type: String,

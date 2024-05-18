@@ -29,6 +29,11 @@ const RecruitmentSessionSchema = new mongoose.Schema({
         default: [],
         required: true
     },
+    candidates: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: []
+    }]
 })
 
 const RecruitmentSession = mongoose.model("RecruitmentSession", RecruitmentSessionSchema)

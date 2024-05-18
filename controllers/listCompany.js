@@ -1,87 +1,75 @@
-import express from 'express'
-import RecruitSession from '../models/ListCompany.js';
-import bodyParser from 'body-parser';
-import RecruimentApplicant from '../models/Recruitment Applicant.js';
-const app = express();
-
-app.use(bodyParser.json());
+import CV from '../models/CV.js';
+import RecruitmentSession from '../models/RecruitmentSession.js';
+import User from '../models/User.js';
 
 // xem danh sach cac dot tuyen dung cong ty
-export const checkCecruitment = async (req, res) => {
+export const getRecruitmentSessions = async (req, res) => {
     try {
-        const recruitments = await RecruitSession.find()
-        if (recruitments) {
-            res.json(recruitments)
-        } else {
-            res.status(404).send({ message: "recruiment is not default!" })
-        }
-        res.status(200).send(checkCecruitment)
-    } catch (error) {
-        console.log("error :>>", error);
-        res.status(500).send(error)
+        const recruitmentSessions = await RecruitmentSession.find()
+        res.status(200).json({ recruitmentSessions })
+    } catch (err) {
+        res.status(404).json({ error: err.message })
     }
 }
 
 // chi tiet cac dot tuyen dung cong ty
-export const detailRecruiment = async (req, res) => {
+export const findRecruitmentSession = async (req, res) => {
     try {
-        const recruiments = await RecruitSession.findById(req.params.id);
-        if (!recruiments) {
-            return res.status(404).send({ message: "recruiment is not found!" })
-        }
-        res.status(201).send(recruiments)
-    } catch (error) {
-        console.log("error :>>", error);
-        res.status(500).send(error)
+        const recruimentSession = await RecruitmentSession.findById(req.params.id).populate("candidates").exec();
+
+        res.status(201).json({ recruimentSession })
+    } catch (err) {
+        res.status(500).json({ error: err.message })
     }
 }
 
 // tao moi cac dot tuyen dung cong ty
-export const createRecruiment = async (req, res) => {
+export const createRecruitmentSession = async (req, res) => {
     try {
-        const createRecruiment = new RecruitSession(req.body)
+        const newRecruitmentSession = new RecruitmentSession(req.body)
 
-        await createRecruiment.save();
+        await newRecruitmentSession.save();
 
-        res.status(203).send(createRecruiment)
-    } catch (error) {
-        console.log("error :>>", error);
-        res.status(500).send(error)
+        res.status(200).json({ newRecruitmentSession })
+    } catch (err) {
+        res.status(500).send({ error: err.message })
     }
 }
 
 // cap nhạt cac dot tuyen dung cong ty
-export const updateRecruiment = async (req, res) => {
+export const updateRecruitmentSession = async (req, res) => {
     try {
-        const updateRecruiments = await RecruitSession.findByIdAndUpdate(req.params.id)
-        await updateRecruiments.save();
-        res.status(204).send(updateRecruiments)
-    } catch (error) {
-        console.log("erro :>>", error);
-        res.status(500).send(error)
-    }
-}
-
-// xem danh sach ưng vien trong đợt tuyển dụng
-export const candidateRecruiment = async (req, res) => {
-    try {
-        const candidates = await RecruimentApplicant.find({ recruimentId: req.params.id });
-        if (!candidates) {
-            res.json(candidates)
-        } else {
-            return res.status(404).send("recruiment is not found!")
-        }
-        res.status(200).send(candidates)
-    } catch (error) {
-        console.log("error :>>", error);
-        res.status(500).send(error)
+        const { 
+             recruitmentSessionId,
+             officer,
+             name,
+             startDate,
+             endDate,
+             jobPosition,
+             descriptions
+        } = req.body
+        const updatedRecruitmentSession = await RecruitmentSession.findByIdAndUpdate(
+            recruitmentSessionId,
+            {
+                officer,
+                name,
+                startDate,
+                endDate,
+                jobPosition,
+                descriptions
+            },
+            { "new": true, "upsert": true }
+        )
+        res.status(200).json({ updatedRecruitmentSession })
+    } catch (err) {
+        res.status(500).json({ error: err.message })
     }
 }
 
 // them ung vien theo yeu cau
-export const createCandidate = async (req, res) => {
+export const addCandidate = async (req, res) => {
     try {
-        const createCandidates = new RecruimentApplicant({ recruimentId: req.params.recruimentId, ...req.body, });
+        const createCandidates = new 
 
         await createCandidates.save();
         res.json(createCandidates)

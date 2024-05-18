@@ -54,10 +54,6 @@ app.post("/auth/register", register, upload.single("picture"))
 
 const PORT = process.env.PORT || 8000
 
-app.post('/list', (req, res) => {
-    res.status(200).send("hello mindx")
-})
-
 mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
