@@ -17,7 +17,7 @@ import jobRouter from "./routes/jobManagement.js";
 import routerList from "./routes/listTest.js"
 import routerCandidate from "./routes/listRouter.js"
 import authRoutes from "./routes/auth.js";
-import testRouter from "./routes/test.js"
+import { register } from "./controllers/auth.js"
 
 // CONFIG
 dotenv.config()

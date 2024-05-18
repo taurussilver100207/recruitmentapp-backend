@@ -1,7 +1,7 @@
 import express from 'express'
 import RecruitSession from '../models/ListCompany.js';
 import bodyParser from 'body-parser';
-import RecruimentApplicant from '../models/Recruitment Applicant.js';
+import RecruimentApplicant from '../models/RecruitmentApplicant.js';
 
 const app = express();
 
