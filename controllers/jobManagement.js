@@ -1,12 +1,18 @@
 import { jobModel } from "../models/job.js";
 
-// CREATE JOB
 export const createJob = async (req, res, next) => {
     try {
         const { jobId, jobName, jobDescription } = req.body;
 
+        console.log("Request body:", req.body);
+
         if (!jobId || !jobName || !jobDescription) {
-            return res.status(400).json({ error: "jobId, jobName or jobDescription is required." });
+            return res.status(400).json({ error: "jobId, jobName, and jobDescription are required." });
+        }
+
+        const { descriptionParts, salary, skillsAndExperience, reasonToWorkHere } = jobDescription;
+        if (!descriptionParts || !salary || !skillsAndExperience || !reasonToWorkHere) {
+            return res.status(400).json({ error: "All fields in jobDescription are required." });
         }
 
         const existingJobs = await jobModel.find({ jobName });
@@ -18,7 +24,12 @@ export const createJob = async (req, res, next) => {
         const newJob = new jobModel({
             jobId,
             jobName,
-            jobDescription
+            jobDescription: {
+                description: descriptionParts,
+                salary,
+                skillsAndExperience,
+                reasonToWorkHere
+            }
         });
 
         const savedJob = await newJob.save();
@@ -28,6 +39,8 @@ export const createJob = async (req, res, next) => {
         res.status(500).json({ message: "Error creating job" });
     }
 };
+
+
 
 // DELETE JOB BY ID
 export const deleteJob = async (req, res) => {
@@ -81,8 +94,8 @@ export const getListJobs = async (req, res) => {
 //GET ONE JOB
 export const getJob = async (req, res) => {
     try {
-        const { idJob } = req.params;
-        const job = await jobModel.findById(idJob);
+        const { id } = req.params; 
+        const job = await jobModel.findById(id);
 
         if (!job) {
             return res.status(404).json({ message: 'Job not found' });
@@ -94,6 +107,9 @@ export const getJob = async (req, res) => {
         res.status(500).json({ message: 'Error retrieving the job' });
     }
 };
+
+
+
 
 // UPDATE JOB
 export const updateJob = async (req, res) => {
@@ -154,7 +170,4 @@ export const filterJobs = async (req, res) => {
         res.status(500).send({ message: "Server error", error: error.message });
     }
 };
-
-
-
 

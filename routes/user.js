@@ -1,8 +1,8 @@
 import express from "express"
-import { getUserByEmail } from "../controllers/getUser.js"
+import { getUsersByEmails } from "../controllers/getUser.js"
 
 const getUserRouter = express.Router()
 
-getUserRouter.get("/getUser", getUserByEmail)
+getUserRouter.get("/getUser", getUsersByEmails)
 
 export default getUserRouter;
