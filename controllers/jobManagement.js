@@ -1,5 +1,6 @@
 import { jobModel } from "../models/job.js";
 
+// CREATE JOB
 export const createJob = async (req, res, next) => {
     try {
         const { jobId, jobName, jobDescription } = req.body;
@@ -58,20 +59,48 @@ export const deleteJob = async (req, res) => {
     }
 };
 
-//GET LIST JOBS
+// GET LIST JOBS
 export const getListJobs = async (req, res) => {
     try {
-        const { $skip, $limit, ...findQuery } = req.query;
+        const { $skip, $limit, search, minSalary, maxSalary, startDate, endDate } = req.query;
 
         const skip = Number($skip);
         const limit = Number($limit);
 
-        // if (isNaN(skip) || isNaN(limit)) {
-        //     return res.status(400).json({ message: 'Invalid skip or limit' });
-        // }
+        if (isNaN(skip) || isNaN(limit)) {
+            return res.status(400).json({ message: 'Invalid skip or limit' });
+        }
+
+        let findQuery = {};
+
+        if (search) {
+            findQuery = {
+                $or: [
+                    { jobName: { $regex: search, $options: 'i' } },
+                    { jobId: { $regex: search, $options: 'i' } }
+                ]
+            };
+        }
+
+        if (minSalary) {
+            findQuery['jobDescription.salary'] = { $gte: Number(minSalary) };
+        }
+
+        if (maxSalary) {
+            findQuery['jobDescription.salary'] = { ...findQuery['jobDescription.salary'], $lte: Number(maxSalary) };
+        }
+
+        if (startDate) {
+            findQuery.createdAt = { $gte: new Date(startDate) };
+        }
+
+        if (endDate) {
+            findQuery.createdAt = { ...findQuery.createdAt, $lte: new Date(endDate) };
+        }
 
         const jobs = await jobModel.find(findQuery)
-            .skip(skip * limit)
+            .sort({ createdAt: -1 })
+            .skip(skip)
             .limit(limit);
 
         const total = await jobModel.countDocuments(findQuery);
@@ -91,10 +120,11 @@ export const getListJobs = async (req, res) => {
 };
 
 
+
 //GET ONE JOB
 export const getJob = async (req, res) => {
     try {
-        const { id } = req.params; 
+        const { id } = req.params;
         const job = await jobModel.findById(id);
 
         if (!job) {
